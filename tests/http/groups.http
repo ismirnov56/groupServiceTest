@@ -1,0 +1,57 @@
+// Create root group
+
+POST {{host}}:{{port}}/api/users/
+Content-Type: application/json
+
+{
+  "name": "group1",
+  "parent_id": null
+}
+
+###
+
+// Create child group
+
+POST {{host}}:{{port}}/api/groups/
+Content-Type: application/json
+
+{
+  "name": "group2",
+  "parent_id": 1
+}
+
+###
+
+// Create child group
+
+POST {{host}}:{{port}}/api/groups/
+Content-Type: application/json
+
+{
+  "name": "group2",
+  "parent_id": 2
+}
+
+###
+
+// Getting all groups
+
+GET {{host}}:{{port}}/api/groups/
+
+###
+
+// Getting group by id
+
+GET {{host}}:{{port}}/api/groups/1/
+
+###
+
+// Delete group by id
+
+DELETE {{host}}:{{port}}/api/groups/3/
+
+// Getting full info group by id with
+
+###
+
+GET {{host}}:{{port}}/api/groups/info/1/

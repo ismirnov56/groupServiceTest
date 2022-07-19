@@ -1,0 +1,11 @@
+// Create root group
+
+POST {{host}}:{{port}}/api/groups/
+Content-Type: application/json
+
+{
+  "first_name": "Богдан",
+  "last_name": "Титомир",
+  "birth_year": 1998,
+  "group_id": 1
+}
