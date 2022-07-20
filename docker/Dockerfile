@@ -3,7 +3,6 @@ FROM golang:1.18.3
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get install -y apt-transport-https ca-certificates curl gnupg-agent && \
     curl -sSL https://packagecloud.io/golang-migrate/migrate/gpgkey | apt-key add - && \
     echo "deb https://packagecloud.io/golang-migrate/migrate/ubuntu/ bionic main" > /etc/apt/sources.list.d/migrate.list && \
     apt-get update && apt-get install -y migrate
