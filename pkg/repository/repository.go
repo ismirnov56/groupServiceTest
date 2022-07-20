@@ -19,6 +19,10 @@ type GroupInfo interface {
 
 type User interface {
 	CreateUser(user models.User) (models.User, error)
+	GetAllUsers() ([]models.User, error)
+	GetUserById(userId int) (models.User, error)
+	DeleteUser(userId int) error
+	UpdateUser(userId int, user models.User) (models.User, error)
 }
 
 type Repository struct {
