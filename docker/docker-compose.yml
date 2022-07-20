@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  dbgroups:
+    image: postgres:latest
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_DB: my_groups
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    volumes:
+      - ../volumes/postgresql:/var/lib/postgresql/groups_data
+
+  groups-service:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    env_file:
+      - ../.env
+    ports:
+      - 8081:8081
+    depends_on:
+      - dbgroups
+    restart: always
