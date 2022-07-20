@@ -28,3 +28,7 @@ func (s *GroupService) GetGroupById(groupId int) (models.Group, error) {
 func (s *GroupService) DeleteGroup(groupId int) error {
 	return s.repo.DeleteGroup(groupId)
 }
+
+func (s *GroupService) UpdateGroup(groupId int, group models.Group) (models.Group, error) {
+	return s.repo.UpdateGroup(groupId, group)
+}

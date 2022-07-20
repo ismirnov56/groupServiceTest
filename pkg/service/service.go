@@ -10,6 +10,7 @@ type Group interface {
 	GetAllGroups() ([]models.Group, error)
 	GetGroupById(groupId int) (models.Group, error)
 	DeleteGroup(groupId int) error
+	UpdateGroup(groupId int, group models.Group) (models.Group, error)
 }
 
 type GroupInfo interface {
