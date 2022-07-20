@@ -1,6 +1,6 @@
 // Create root group
 
-POST {{host}}:{{port}}/api/users/
+POST {{host}}:{{port}}/api/groups/
 Content-Type: application/json
 
 {
@@ -59,7 +59,7 @@ GET {{host}}:{{port}}/api/groups/info/1/
 
 ###
 
-PUT {{host}}:{{port}}/api/groups/1/
+PUT {{host}}:{{port}}/api/groups/1
 Content-Type: application/json
 
 {

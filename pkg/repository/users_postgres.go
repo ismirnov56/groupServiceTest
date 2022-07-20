@@ -28,3 +28,56 @@ func (r *UserPostgres) CreateUser(user models.User) (models.User, error) {
 
 	return result, nil
 }
+
+func (r *UserPostgres) GetAllUsers() ([]models.User, error) {
+	var users []models.User
+
+	query := fmt.Sprintf("select * FROM %s", usersTable)
+
+	if err := r.db.Select(&users, query); err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}
+
+func (r *UserPostgres) GetUserById(userId int) (models.User, error) {
+	var user models.User
+
+	query := fmt.Sprintf("select * FROM %s WHERE id = $1", usersTable)
+
+	if err := r.db.Get(&user, query, userId); err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
+func (r *UserPostgres) DeleteUser(userId int) error {
+	query := fmt.Sprintf("DELETE FROM %s WHERE id = $1", usersTable)
+
+	_, err := r.db.Exec(query, userId)
+
+	return err
+}
+
+func (r *UserPostgres) UpdateUser(userId int, user models.User) (models.User, error) {
+	var resultUser models.User
+
+	query := fmt.Sprintf("UPDATE %s SET first_name = $1, last_name = $2, birth_year = $3, group_id = $4"+
+		"WHERE id = $5 RETURNING id, first_name, last_name, birth_year, group_id", usersTable)
+
+	row := r.db.QueryRow(query, user.FirstName, user.LastName, user.BirthYear, user.GroupId, userId)
+
+	if err := row.Scan(
+		&resultUser.Id,
+		&resultUser.FirstName,
+		&resultUser.LastName,
+		&resultUser.BirthYear,
+		&resultUser.GroupId,
+	); err != nil {
+		return resultUser, err
+	}
+
+	return resultUser, nil
+}

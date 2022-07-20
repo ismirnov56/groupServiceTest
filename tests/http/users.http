@@ -9,3 +9,40 @@ Content-Type: application/json
   "birth_year": 1998,
   "group_id": 1
 }
+
+
+###
+
+POST {{host}}:{{port}}/api/users/
+Content-Type: application/json
+
+{
+  "first_name": "Богдан 2",
+  "last_name": "Титомир 2",
+  "birth_year": 1998,
+  "group_id": 2
+}
+
+###
+
+GET {{host}}:{{port}}/api/users/
+
+###
+
+GET {{host}}:{{port}}/api/users/1/
+
+###
+
+PUT {{host}}:{{port}}/api/users/1
+Content-Type: application/json
+
+{
+  "first_name": "Богдан test update",
+  "last_name": "Титомир test update",
+  "birth_year": 1998,
+  "group_id": 2
+}
+
+###
+
+DELETE {{host}}:{{port}}/api/users/2/
