@@ -5,17 +5,12 @@ import (
 	"app/pkg/handler"
 	"app/pkg/repository"
 	"app/pkg/service"
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"log"
 	"os"
 )
 
 func main() {
-
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("don't setup endv %s", err.Error())
-	}
 
 	db, err := repository.NewPostgresDB(
 		repository.Config{
