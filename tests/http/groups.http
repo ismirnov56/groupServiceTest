@@ -55,3 +55,14 @@ DELETE {{host}}:{{port}}/api/groups/3/
 ###
 
 GET {{host}}:{{port}}/api/groups/info/1/
+
+
+###
+
+PUT {{host}}:{{port}}/api/groups/1/
+Content-Type: application/json
+
+{
+  "name": "group_test_update",
+  "parent_id": null
+}

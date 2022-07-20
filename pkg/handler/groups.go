@@ -22,7 +22,7 @@ func (h *Handler) createGroup(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, resp)
+	c.JSON(http.StatusCreated, resp)
 }
 
 func (h *Handler) listGroup(c *gin.Context) {
@@ -56,7 +56,28 @@ func (h *Handler) getItemGroup(c *gin.Context) {
 }
 
 func (h *Handler) updateItemGroup(c *gin.Context) {
-	//id, err := strconv.Atoi(c.Param("id"))
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	var input models.Group
+
+	if err := c.BindJSON(&input); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := h.Service.Group.UpdateGroup(id, input)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusCreated, resp)
 }
 
 func (h *Handler) deleteItemGroup(c *gin.Context) {

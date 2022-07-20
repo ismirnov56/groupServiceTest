@@ -60,3 +60,18 @@ func (r *GroupPostgres) DeleteGroup(groupId int) error {
 
 	return err
 }
+
+func (r *GroupPostgres) UpdateGroup(groupId int, group models.Group) (models.Group, error) {
+	var resultGroup models.Group
+
+	query := fmt.Sprintf("UPDATE %s SET name = $1, parent_id = $2 "+
+		"WHERE id = $3 RETURNING id, name, parent_id", groupsTable)
+
+	row := r.db.QueryRow(query, group.Name, group.ParentId, groupId)
+
+	if err := row.Scan(&resultGroup.Id, &resultGroup.Name, &resultGroup.ParentId); err != nil {
+		return resultGroup, err
+	}
+
+	return resultGroup, nil
+}
