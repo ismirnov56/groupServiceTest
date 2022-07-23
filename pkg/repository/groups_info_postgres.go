@@ -2,6 +2,7 @@ package repository
 
 import (
 	"app/models"
+	"context"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 )
@@ -14,7 +15,7 @@ func NewGroupInfoPostgres(db *sqlx.DB) *GroupInfoPostgres {
 	return &GroupInfoPostgres{db: db}
 }
 
-func (r *GroupInfoPostgres) GetGroupInfoById(groupId int) (models.GroupInfo, error) {
+func (r *GroupInfoPostgres) GetGroupInfoByID(ctx context.Context, groupID int) (models.GroupInfo, error) {
 	var groupInfo models.GroupInfo
 
 	query := fmt.Sprintf(
@@ -41,7 +42,7 @@ func (r *GroupInfoPostgres) GetGroupInfoById(groupId int) (models.GroupInfo, err
 		WHERE id = $1;`,
 		groupsTable, usersTable)
 
-	if err := r.db.Get(&groupInfo, query, groupId); err != nil {
+	if err := r.db.QueryRowContext(ctx, query, groupID).Scan(&groupInfo); err != nil {
 		return groupInfo, err
 	}
 

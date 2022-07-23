@@ -20,9 +20,9 @@ func (r *GroupPostgres) CreateGroup(group models.Group) (models.Group, error) {
 	query := fmt.Sprintf("INSERT INTO %s (name, parent_id) "+
 		"values ($1, $2) RETURNING id, name, parent_id", groupsTable)
 
-	row := r.db.QueryRow(query, group.Name, group.ParentId)
+	row := r.db.QueryRow(query, group.Name, group.ParentID)
 
-	if err := row.Scan(&resultGroup.Id, &resultGroup.Name, &resultGroup.ParentId); err != nil {
+	if err := row.Scan(&resultGroup.ID, &resultGroup.Name, &resultGroup.ParentID); err != nil {
 		return resultGroup, err
 	}
 
@@ -41,7 +41,7 @@ func (r *GroupPostgres) GetAllGroups() ([]models.Group, error) {
 	return groups, nil
 }
 
-func (r *GroupPostgres) GetGroupById(groupId int) (models.Group, error) {
+func (r *GroupPostgres) GetGroupByID(groupId int) (models.Group, error) {
 	var group models.Group
 
 	query := fmt.Sprintf("select * FROM %s WHERE id = $1", groupsTable)
@@ -53,23 +53,23 @@ func (r *GroupPostgres) GetGroupById(groupId int) (models.Group, error) {
 	return group, nil
 }
 
-func (r *GroupPostgres) DeleteGroup(groupId int) error {
+func (r *GroupPostgres) DeleteGroup(groupID int) error {
 	query := fmt.Sprintf("DELETE FROM %s WHERE id = $1", groupsTable)
 
-	_, err := r.db.Exec(query, groupId)
+	_, err := r.db.Exec(query, groupID)
 
 	return err
 }
 
-func (r *GroupPostgres) UpdateGroup(groupId int, group models.Group) (models.Group, error) {
+func (r *GroupPostgres) UpdateGroup(groupID int, group models.Group) (models.Group, error) {
 	var resultGroup models.Group
 
 	query := fmt.Sprintf("UPDATE %s SET name = $1, parent_id = $2 "+
 		"WHERE id = $3 RETURNING id, name, parent_id", groupsTable)
 
-	row := r.db.QueryRow(query, group.Name, group.ParentId, groupId)
+	row := r.db.QueryRow(query, group.Name, group.ParentID, groupID)
 
-	if err := row.Scan(&resultGroup.Id, &resultGroup.Name, &resultGroup.ParentId); err != nil {
+	if err := row.Scan(&resultGroup.ID, &resultGroup.Name, &resultGroup.ParentID); err != nil {
 		return resultGroup, err
 	}
 

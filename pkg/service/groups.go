@@ -21,14 +21,14 @@ func (s *GroupService) GetAllGroups() ([]models.Group, error) {
 	return s.repo.GetAllGroups()
 }
 
-func (s *GroupService) GetGroupById(groupId int) (models.Group, error) {
-	return s.repo.GetGroupById(groupId)
+func (s *GroupService) GetGroupByID(groupID int) (models.Group, error) {
+	return s.repo.GetGroupByID(groupID)
 }
 
-func (s *GroupService) DeleteGroup(groupId int) error {
-	return s.repo.DeleteGroup(groupId)
+func (s *GroupService) DeleteGroup(groupID int) error {
+	return s.repo.DeleteGroup(groupID)
 }
 
-func (s *GroupService) UpdateGroup(groupId int, group models.Group) (models.Group, error) {
-	return s.repo.UpdateGroup(groupId, group)
+func (s *GroupService) UpdateGroup(groupID int, group models.Group) (models.Group, error) {
+	return s.repo.UpdateGroup(groupID, group)
 }

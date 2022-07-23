@@ -45,7 +45,7 @@ func (h *Handler) getItemUser(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.User.GetUserById(id)
+	resp, err := h.Service.User.GetUserByID(id)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())

@@ -1,27 +1,23 @@
 package main
 
 import (
-	"app"
+	"app/pkg"
 	"app/pkg/handler"
 	"app/pkg/repository"
 	"app/pkg/service"
+	"github.com/caarlos0/env/v6"
 	_ "github.com/lib/pq"
 	"log"
-	"os"
 )
 
 func main() {
+	config := pkg.Config{}
 
-	db, err := repository.NewPostgresDB(
-		repository.Config{
-			Host:     os.Getenv("DB_HOST"),
-			Port:     os.Getenv("DB_PORT"),
-			Username: os.Getenv("DB_USERNAME"),
-			Password: os.Getenv("DB_PASSWORD"),
-			DBName:   os.Getenv("DB_DBNAME"),
-			SSLMode:  os.Getenv("DB_SSLMODE"),
-		},
-	)
+	if err := env.Parse(&config); err != nil {
+		log.Fatalf("Error reading config: %s", err.Error())
+	}
+
+	db, err := repository.NewPostgresDB(config)
 
 	if err != nil {
 		log.Fatalf("Error while runing DB: %s", err.Error())
@@ -31,8 +27,8 @@ func main() {
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
-	srv := new(app.Server)
-	if err := srv.Run(os.Getenv("APP_PORT"), handlers.InitRoutes()); err != nil {
+	srv := new(pkg.Server)
+	if err := srv.Run(config.Port, handlers.InitRoutes()); err != nil {
 		log.Fatalf("Error while runing server: %s", err.Error())
 	}
 }

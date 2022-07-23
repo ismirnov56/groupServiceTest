@@ -21,14 +21,14 @@ func (s *UserService) GetAllUsers() ([]models.User, error) {
 	return s.repo.GetAllUsers()
 }
 
-func (s *UserService) GetUserById(userId int) (models.User, error) {
-	return s.repo.GetUserById(userId)
+func (s *UserService) GetUserByID(userID int) (models.User, error) {
+	return s.repo.GetUserByID(userID)
 }
 
-func (s *UserService) DeleteUser(userId int) error {
-	return s.repo.DeleteUser(userId)
+func (s *UserService) DeleteUser(userID int) error {
+	return s.repo.DeleteUser(userID)
 }
 
-func (s *UserService) UpdateUser(userId int, user models.User) (models.User, error) {
-	return s.repo.UpdateUser(userId, user)
+func (s *UserService) UpdateUser(userID int, user models.User) (models.User, error) {
+	return s.repo.UpdateUser(userID, user)
 }

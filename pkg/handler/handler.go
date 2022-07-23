@@ -15,6 +15,7 @@ func NewHandler(service *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
+	router.Use(JSONLogMiddleware())
 
 	api := router.Group("/api")
 	{

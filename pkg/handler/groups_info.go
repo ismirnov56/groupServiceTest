@@ -14,7 +14,7 @@ func (h *Handler) getItemGroupInfo(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.GroupInfo.GetGroupInfoById(id)
+	resp, err := h.Service.GroupInfo.GetGroupInfoByID(c, id)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
