@@ -15,7 +15,7 @@ func (h *Handler) createUser(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.User.CreateUser(input)
+	resp, err := h.Service.User.CreateUser(c, input)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -26,8 +26,7 @@ func (h *Handler) createUser(c *gin.Context) {
 }
 
 func (h *Handler) listUsers(c *gin.Context) {
-
-	resp, err := h.Service.User.GetAllUsers()
+	resp, err := h.Service.User.GetAllUsers(c)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -45,7 +44,7 @@ func (h *Handler) getItemUser(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.User.GetUserByID(id)
+	resp, err := h.Service.User.GetUserByID(c, id)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -70,7 +69,7 @@ func (h *Handler) updateItemUser(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.User.UpdateUser(id, input)
+	resp, err := h.Service.User.UpdateUser(c, id, input)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -88,7 +87,7 @@ func (h *Handler) deleteItemUser(c *gin.Context) {
 		return
 	}
 
-	err = h.Service.User.DeleteUser(id)
+	err = h.Service.User.DeleteUser(c, id)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())

@@ -3,6 +3,7 @@ package service
 import (
 	"app/models"
 	"app/pkg/repository"
+	"context"
 )
 
 type UserService struct {
@@ -13,22 +14,22 @@ func NewUserService(repo repository.User) *UserService {
 	return &UserService{repo: repo}
 }
 
-func (s *UserService) CreateUser(user models.User) (models.User, error) {
-	return s.repo.CreateUser(user)
+func (s *UserService) CreateUser(ctx context.Context, user models.User) (models.User, error) {
+	return s.repo.CreateUser(ctx, user)
 }
 
-func (s *UserService) GetAllUsers() ([]models.User, error) {
-	return s.repo.GetAllUsers()
+func (s *UserService) GetAllUsers(ctx context.Context) ([]models.User, error) {
+	return s.repo.GetAllUsers(ctx)
 }
 
-func (s *UserService) GetUserByID(userID int) (models.User, error) {
-	return s.repo.GetUserByID(userID)
+func (s *UserService) GetUserByID(ctx context.Context, userID int) (models.User, error) {
+	return s.repo.GetUserByID(ctx, userID)
 }
 
-func (s *UserService) DeleteUser(userID int) error {
-	return s.repo.DeleteUser(userID)
+func (s *UserService) DeleteUser(ctx context.Context, userID int) error {
+	return s.repo.DeleteUser(ctx, userID)
 }
 
-func (s *UserService) UpdateUser(userID int, user models.User) (models.User, error) {
-	return s.repo.UpdateUser(userID, user)
+func (s *UserService) UpdateUser(ctx context.Context, userID int, user models.User) (models.User, error) {
+	return s.repo.UpdateUser(ctx, userID, user)
 }

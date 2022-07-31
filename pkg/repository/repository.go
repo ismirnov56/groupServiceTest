@@ -7,11 +7,11 @@ import (
 )
 
 type Group interface {
-	CreateGroup(group models.Group) (models.Group, error)
-	GetAllGroups() ([]models.Group, error)
-	GetGroupByID(groupID int) (models.Group, error)
-	DeleteGroup(groupID int) error
-	UpdateGroup(groupID int, group models.Group) (models.Group, error)
+	CreateGroup(ctx context.Context, group models.Group) (models.Group, error)
+	GetAllGroups(ctx context.Context) ([]models.Group, error)
+	GetGroupByID(ctx context.Context, groupID int) (models.Group, error)
+	DeleteGroup(ctx context.Context, groupID int) error
+	UpdateGroup(ctx context.Context, groupID int, group models.Group) (models.Group, error)
 }
 
 type GroupInfo interface {
@@ -19,11 +19,11 @@ type GroupInfo interface {
 }
 
 type User interface {
-	CreateUser(user models.User) (models.User, error)
-	GetAllUsers() ([]models.User, error)
-	GetUserByID(userID int) (models.User, error)
-	DeleteUser(userID int) error
-	UpdateUser(userID int, user models.User) (models.User, error)
+	CreateUser(ctx context.Context, user models.User) (models.User, error)
+	GetAllUsers(ctx context.Context) ([]models.User, error)
+	GetUserByID(ctx context.Context, userID int) (models.User, error)
+	DeleteUser(ctx context.Context, userID int) error
+	UpdateUser(ctx context.Context, userID int, user models.User) (models.User, error)
 }
 
 type Repository struct {

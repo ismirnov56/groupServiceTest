@@ -15,7 +15,7 @@ func (h *Handler) createGroup(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.Group.CreateGroup(input)
+	resp, err := h.Service.Group.CreateGroup(c, input)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -26,8 +26,7 @@ func (h *Handler) createGroup(c *gin.Context) {
 }
 
 func (h *Handler) listGroup(c *gin.Context) {
-
-	resp, err := h.Service.Group.GetAllGroups()
+	resp, err := h.Service.Group.GetAllGroups(c)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -45,7 +44,7 @@ func (h *Handler) getItemGroup(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.Group.GetGroupByID(id)
+	resp, err := h.Service.Group.GetGroupByID(c, id)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -70,7 +69,7 @@ func (h *Handler) updateItemGroup(c *gin.Context) {
 		return
 	}
 
-	resp, err := h.Service.Group.UpdateGroup(id, input)
+	resp, err := h.Service.Group.UpdateGroup(c, id, input)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -88,7 +87,7 @@ func (h *Handler) deleteItemGroup(c *gin.Context) {
 		return
 	}
 
-	err = h.Service.Group.DeleteGroup(id)
+	err = h.Service.Group.DeleteGroup(c, id)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
